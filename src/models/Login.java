@@ -38,8 +38,9 @@ public class Login {
 
 	public Login(){
 		try {
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-		} catch (SQLException e) {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
