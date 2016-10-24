@@ -43,8 +43,8 @@ public class Login extends HttpServlet {
 		models.Login model = new models.Login();
 		beans.User curUser = model.validUser(ID, password);
 		if(curUser != null){
-			request.getSession().setAttribute("currentUser", curUser);
-			response.sendRedirect("loggedin.jsp");
+			request.getSession().setAttribute("curUser", curUser);
+			response.sendRedirect("validuser/loggedin.jsp");
 		}else{
 			PrintWriter pw = response.getWriter();
 			pw.println("User ID invalid");
