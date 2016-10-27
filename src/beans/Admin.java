@@ -1,5 +1,7 @@
 package beans;
 
+import java.io.PrintWriter;
+
 //Admin class inherits abstract class User
 public class Admin extends User{	
 	
@@ -30,5 +32,12 @@ public class Admin extends User{
 	{
 		super.displayProfileInfo();
 		System.out.println("Emergency Contact No: " + this.emergencyContact);
+	}
+	
+	public void printProfileInfo(PrintWriter pw)
+	{
+		super.printProfileInfo(pw);
+		pw.println("Emergency Contact No: " + this.emergencyContact);
+		pw.println("</br>");
 	}
 }

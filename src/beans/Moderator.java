@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.PrintWriter;
 import java.util.*;
 
 //Moderator class inherits abstract class User
@@ -46,6 +47,22 @@ public class Moderator extends User{
 		for(int i=0;i<this.qualifications.size();i++)
 		{
 			System.out.println("Qualifications are : " + this.qualifications.get(i).toString());
+		}
+	}
+	
+	public void printProfileInfo(PrintWriter pw)
+	{
+		super.printProfileInfo(pw);
+		pw.println("Emergency Contact No: " + this.emergencyContact);
+		pw.println("</br>");
+		pw.println("Qualifications are:&nbsp;");
+		for(int i=0;i<this.qualifications.size();i++)
+		{
+			if(i!=this.qualifications.size() - 1){
+				pw.println(this.qualifications.get(i).toString()+ ",&nbsp");
+			}else{
+				pw.println(this.qualifications.get(i).toString());
+			}
 		}
 	}
 }

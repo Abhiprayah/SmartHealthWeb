@@ -33,13 +33,13 @@
 	<h1 class="auto-style4">SmartHealth</h1>
 <table align="center" class="auto-style5" style="width: 100%">
 	<tr>
-		<td><a href="/display">Display</a></td>
-		<td><a href="/update_enduser">Update</a></td>
+		<td><a href="/SmartHealthWeb/Display">Display</a></td>
+		<td><a href="update.jsp">Update</a></td>
 		<td><a href="Friends.jsp">Friends</a></td>
 		<td><a href="/forums">Forums</a></td>
 		<td><a href="/health_data">Health Data</a></td>
-		<td><a href="/quit">Quit Profile </a></td>
-		<td><a href="/logout">Logout</a></td>
+		<td><a href="/SmartHealthWeb/Quit">Quit Profile </a></td>
+		<td><a href="/SmartHealthWeb/Logout">Logout</a></td>
 	</tr>
 </table>
 </div>

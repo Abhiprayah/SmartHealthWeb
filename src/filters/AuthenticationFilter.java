@@ -49,7 +49,7 @@ public class AuthenticationFilter implements Filter {
         if (loggedIn || loginRequest) {
             chain.doFilter(req, res);
         } else {
-            res.sendRedirect(loginURI);
+        	res.sendRedirect(loginURI);
         }
 	}
 

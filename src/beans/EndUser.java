@@ -1,5 +1,7 @@
 package beans;
 
+import java.io.PrintWriter;
+
 //End User inherits abstract base class User
 public class EndUser extends User{
 	private int karma;
@@ -21,6 +23,13 @@ public class EndUser extends User{
 	{
 		super.displayProfileInfo();
 		System.out.println("User Karma: " + this.karma);
+	}
+	
+	public void printProfileInfo(PrintWriter pw)
+	{
+		super.printProfileInfo(pw);
+		pw.println("User Karma: " + this.karma);
+		pw.println("</br>");
 	}
 	
 	public int getKarma(){

@@ -9,17 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.User;
+
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Display
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/Display")
+public class Display extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public Display() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,35 +32,17 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		PrintWriter pw = response.getWriter();
+		User user = (User)request.getSession(false).getAttribute("curUser");
+		user.printProfileInfo(pw);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 		//doGet(request, response);
-		
-		if(request.getSession(false) != null){
-			if(request.getSession(false).getAttribute("curUser") != null){
-				request.getSession(false).setAttribute("curUser", null);
-			}
-			request.getSession(false).invalidate();
-		}
-		
-		String ID = request.getParameter("EmailID");
-		String password = request.getParameter("Password");
-		models.Login model = new models.Login();
-		beans.User curUser = model.validUser(ID, password);
-		if(curUser != null){
-			request.getSession().setAttribute("curUser", curUser);
-			if(!curUser.hasQuit()) response.sendRedirect("validuser/loggedin.jsp");
-			else response.sendRedirect("validuser/join.jsp");
-		}else{
-			PrintWriter pw = response.getWriter();
-			pw.println("User ID or Password invalid");
-			pw.close();
-		}
 	}
 
 }

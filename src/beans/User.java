@@ -1,5 +1,7 @@
 package beans;
 
+import java.io.PrintWriter;
+
 //Abstract class user inherited by Admin, Moderator and EndUser Classes
 public abstract class User {
 
@@ -181,6 +183,32 @@ public abstract class User {
 		System.out.println("Pic 1: " + this.picurl[0]);
 		System.out.println("Pic 2: " + this.picurl[1]);
 		System.out.println("Pic 3: " + this.picurl[2]);
+	}
+	
+	public void printProfileInfo(PrintWriter pw)
+	{
+		pw.println("User Type: " + this.userType);
+		pw.println("</br>");
+		pw.println("Primary Email: " + this.primaryEmail);
+		pw.println("</br>");
+		pw.println("Secondary Email: " + this.secondaryEmail);
+		pw.println("</br>");
+		pw.println("User ID: " + this.userId);
+		pw.println("</br>");
+		pw.println("First Name: " + this.firstName);
+		pw.println("</br>");
+		pw.println("Last Name: " + this.lastName);
+		pw.println("</br>");
+		pw.println("Postal Address:&nbsp;" + this.address.toString());
+		pw.println("</br>");
+		pw.println("About: " + this.aboutMe);
+		pw.println("</br>");
+		pw.println("Pic 1: " + this.picurl[0]);
+		pw.println("</br>");
+		pw.println("Pic 2: " + this.picurl[1]);
+		pw.println("</br>");
+		pw.println("Pic 3: " + this.picurl[2]);
+		pw.println("</br>");
 	}
 	
 }
