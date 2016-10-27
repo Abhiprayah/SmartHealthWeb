@@ -36,7 +36,7 @@
 <div>
 
 <!-- still need to handle action url -->
-<form action="../Friends" method="post">
+<form action="../../Friends" method="post">
 <input type="submit" name="viewfriends" id="viewFriendsSubmit" value="Show Friends" />
 <br />
 <br />

@@ -64,7 +64,7 @@ public class Friends extends HttpServlet {
 				}
 			}
 			request.setAttribute("viewFriendsOutput", viewFriendsOutput.toString());
-			request.getRequestDispatcher("/validuser/Friends.jsp").forward(request, response);
+			request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
 		}
 		else if(request.getParameter("sendrequest")!=null)
 		{
@@ -72,15 +72,15 @@ public class Friends extends HttpServlet {
 			StringBuffer sendFriendRequestOutput = new StringBuffer();
 			if(friendname.equals(curUser.getUserId()))
 			{
-				sendFriendRequestOutput.append("<script> alert('you cannot send friend request to yourself') </script>");
+				sendFriendRequestOutput.append("<script> document.forms[0].parentNode.removeChild(document.forms[0]); alert('you cannot send friend request to yourself') </script>");
 				request.setAttribute("sendFriendRequestOutput", sendFriendRequestOutput.toString());
-				request.getRequestDispatcher("/validuser/Friends.jsp").forward(request, response);
+				request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
 			}
 			else
 			{
-				sendFriendRequestOutput.append("<script> alert(' " + model.sendFriendRequest(friendname, curUser) + " ') </script>");
+				sendFriendRequestOutput.append("<script> document.forms[0].parentNode.removeChild(document.forms[0]); alert(' " + model.sendFriendRequest(friendname, curUser) + " ') </script>");
 				request.setAttribute("sendFriendRequestOutput", sendFriendRequestOutput.toString());
-				request.getRequestDispatcher("/validuser/Friends.jsp").forward(request, response);
+				request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
 			}
 		}
 		
