@@ -12,16 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.User;
+
 /**
- * Servlet Filter implementation class AuthenticationFilter
+ * Servlet Filter implementation class HomeFilter
  */
-@WebFilter(filterName="LoginFilter")
-public class AuthenticationFilter implements Filter {
+@WebFilter(filterName="HomeFilter")
+public class HomeFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public AuthenticationFilter() {
+    public HomeFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -39,17 +41,21 @@ public class AuthenticationFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
-        String loginURI = req.getContextPath() + "/login.jsp";
-
-        boolean loggedIn = session != null && session.getAttribute("curUser") != null;
-        boolean loginRequest = req.getRequestURI().equals(loginURI);
         
-        //System.out.println(req.getRequestURL());
-        //System.out.println(loginURI);
-        if (loggedIn || loginRequest) {
-            chain.doFilter(req, res);
-        } else {
-            res.sendRedirect(loginURI);
+        String homeURI = req.getContextPath() + "/validuser/loggedin.jsp";
+        boolean homeRequest = req.getRequestURI().equals(homeURI);
+        
+        if(!homeRequest){
+        	chain.doFilter(request, response);
+        }else{
+        	User curUser = (User)session.getAttribute("curUser");
+        	if(curUser.getUserType().equals("MOD")){
+        		res.sendRedirect(req.getContextPath() + "/validuser/moderator/home.jsp");
+        	}else if(curUser.getUserType().equals("ADMIN")){
+        		res.sendRedirect(req.getContextPath() + "/validuser/admin/home.jsp");
+        	}else{
+        		res.sendRedirect(req.getContextPath() + "/validuser/enduser/home.jsp");
+        	}
         }
 	}
 

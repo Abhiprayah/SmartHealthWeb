@@ -10,4 +10,24 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/validuser/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>HomeFilter</filter-name>
+    <url-pattern>/validuser/loggedin.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>ModeratorFilter</filter-name>
+    <url-pattern>/validuser/moderator/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>EndUserFilter</filter-name>
+  	<url-pattern>/validuser/enduser/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>AdminFilter</filter-name>
+  	<url-pattern>/validuser/admin/*</url-pattern>
+  </filter-mapping>
 </web-app>

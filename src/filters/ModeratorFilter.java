@@ -10,18 +10,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import beans.User;
 
 /**
- * Servlet Filter implementation class AuthenticationFilter
+ * Servlet Filter implementation class ModeratorFilter
  */
-@WebFilter(filterName="LoginFilter")
-public class AuthenticationFilter implements Filter {
+@WebFilter(filterName="ModeratorFilter")
+public class ModeratorFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public AuthenticationFilter() {
+    public ModeratorFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -38,18 +39,13 @@ public class AuthenticationFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        HttpSession session = req.getSession(false);
-        String loginURI = req.getContextPath() + "/login.jsp";
-
-        boolean loggedIn = session != null && session.getAttribute("curUser") != null;
-        boolean loginRequest = req.getRequestURI().equals(loginURI);
         
-        //System.out.println(req.getRequestURL());
-        //System.out.println(loginURI);
-        if (loggedIn || loginRequest) {
-            chain.doFilter(req, res);
-        } else {
-            res.sendRedirect(loginURI);
+        User curUser = (User)req.getSession(false).getAttribute("curUser");
+        
+        if(curUser.getUserType().equals("MOD")){
+        	chain.doFilter(request, response);
+        }else{
+        	res.sendRedirect(req.getContextPath() + "/validuser/loggedin.jsp");
         }
 	}
 

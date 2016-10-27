@@ -38,6 +38,14 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//TODO Auto-generated method stub
 		//doGet(request, response);
+		
+		if(request.getSession(false) != null){
+			if(request.getSession(false).getAttribute("curUser") != null){
+				request.getSession(false).setAttribute("curUser", null);
+			}
+			request.getSession(false).invalidate();
+		}
+		
 		String ID = request.getParameter("EmailID");
 		String password = request.getParameter("Password");
 		models.Login model = new models.Login();
