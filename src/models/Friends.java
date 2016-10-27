@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import beans.User;
 import smart.Global;
@@ -15,7 +16,7 @@ public class Friends {
 
 	private static views.Friends view = new views.Friends();
 	//to view friends
-	public void viewFriends(User curUser)
+	public ArrayList<String> viewFriends(User curUser)
 	{
 		try {	
 			
@@ -27,12 +28,13 @@ public class Friends {
 						+ "'" + curUser.getUserId() + "'" + " and WhenConfirmed IS NOT NULL and WhenRejected IS NULL;";
 			ResultSet result = stmt.executeQuery(SQL);
 			
-			
+			ArrayList<String>friendslist = new ArrayList<String>();
 			
 			while(result.next())
 			{
 				String FriendUserName = result.getString("Requester_Username");
-				System.out.println(FriendUserName);
+				friendslist.add(FriendUserName);
+				//System.out.println(FriendUserName);
 			}
 			
 			
@@ -44,17 +46,21 @@ public class Friends {
 			while(result.next())
 			{
 				String FriendUserName = result.getString("Requested_Username");
-				System.out.println(FriendUserName);
+				friendslist.add(FriendUserName);
+				//System.out.println(FriendUserName);
 			}
 			
 			result.close();
 			stmt.close();
 			con.close();
+			
+			return friendslist;
 		}
 		catch ( SQLException err) {
 		System.out.println(err.getMessage( ));
 	}
 
+		return null;
 	}
 	
 	
@@ -179,8 +185,12 @@ public class Friends {
 			return true;
 		}
 		
-		public boolean sendFriendRequest(String UserName,User curUser)
+		public String sendFriendRequest(String UserName,User curUser)
 		{
+			if(!isEndUser(UserName))
+			{
+				return "you cannot send friend request to this user";
+			}
 		 if(checkUnconfirmedEntry(UserName,curUser))
 			{
 				try{
@@ -196,11 +206,11 @@ public class Friends {
 					
 					if(rowinserted == 0)
 					{
-						System.out.println("Failed to send request!!");
-						return false;
+						//System.out.println("Failed to send request!!");
+						return "Failed to send request!!";
 					}						
 					else
-					return true;
+					return "friend request sent again";
 					
 				}
 				catch ( SQLException err) {
@@ -223,18 +233,18 @@ public class Friends {
 					
 					if(rowinserted == 0)
 					{
-						System.out.println("Failed to send request!!");
-						return false;
+						//System.out.println("Failed to send request!!");
+						return "Failed to send request!!";
 					}						
 					else
-					return true;
+					return "Friend request sent successfully";
 				}
 							
 				catch ( SQLException err) {
 					System.out.println(err.getMessage( ));
 				}
 			}
-		 return false;
+		 return "Something went wrong while sending friend request";
 		}
 		
 		public void unfriend(String UserName, User curUser)
