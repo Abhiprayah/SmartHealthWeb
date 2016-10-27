@@ -247,36 +247,53 @@ public class Friends {
 		 return "Something went wrong while sending friend request";
 		}
 		
-		public void unfriend(String UserName, User curUser)
+		public String unfriend(String UserName, User curUser)
 		{
-			try
+			boolean unfriend1=false;
+			boolean unfriend2=false;
+			if(isalreadyafriend(UserName,curUser))
 			{
-				Connection con = DriverManager.getConnection(Global.connectionString);
-				Statement stmt = con.createStatement();
-				String SQL = "update friendship set WhenConfirmed = NULL, WhenUnfriended = " + "NOW()"
-							 + "where Requester_Username = " + "'" + curUser.getUserId() + "'" 
-							 + " and Requested_Username = " + "'" + UserName + "';";
-				int result = stmt.executeUpdate(SQL);
+				try
+				{
+					Connection con = DriverManager.getConnection(Global.connectionString);
+					Statement stmt = con.createStatement();
+					String SQL = "update friendship set WhenConfirmed = NULL, WhenUnfriended = " + "NOW()"
+								 + "where Requester_Username = " + "'" + curUser.getUserId() + "'" 
+								 + " and Requested_Username = " + "'" + UserName + "';";
+					int result = stmt.executeUpdate(SQL);
+					
+					if(result != 0)
+						unfriend1 = true;
+						//System.out.println("Unfriended Successfully!!");
+					
+					
+							SQL = "update friendship set WhenConfirmed = NULL, WhenUnfriended = " + "NOW()"
+							 + "where Requested_Username = " + "'" + curUser.getUserId() + "'" 
+							 + " and Requester_Username = " + "'" + UserName + "';";
+							result = stmt.executeUpdate(SQL);
 				
-				if(result != 0)
-					System.out.println("Unfriended Successfully!!");
+							if(result != 0)
+								unfriend2 = true;
+								//System.out.println("Unfriended Successfully");
+							
+							if(unfriend1 || unfriend2)
+							{
+								return "unfriended successfully";
+							}
+					
+					stmt.close();
+					con.close();
+				}
 				
-				
-						SQL = "update friendship set WhenConfirmed = NULL, WhenUnfriended = " + "NOW()"
-						 + "where Requested_Username = " + "'" + curUser.getUserId() + "'" 
-						 + " and Requester_Username = " + "'" + UserName + "';";
-						result = stmt.executeUpdate(SQL);
-			
-						if(result != 0)
-							System.out.println("Unfriended Successfully");
-				
-				stmt.close();
-				con.close();
+				catch ( SQLException err) {
+					System.out.println(err.getMessage( ));
+				}	
 			}
+			else
+				return "cannot unfriend, he is not your friend successfully";
 			
-			catch ( SQLException err) {
-				System.out.println(err.getMessage( ));
-			}	
+			return "some error occurred while execution of this operation";
+			
 		}
 		
 		//to withdraw requests

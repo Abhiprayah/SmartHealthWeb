@@ -83,8 +83,25 @@ public class Friends extends HttpServlet {
 				request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
 			}
 		}
-		
+		else if(request.getParameter("unfriend")!=null)
+		{
+			String friendname = request.getParameter("friendusername");
+			StringBuffer unfriendOutput = new StringBuffer();
+			if(friendname.equals(curUser.getUserId()))
+			{
+				unfriendOutput.append("<script> document.forms[0].parentNode.removeChild(document.forms[0]); alert('you cannot unfriend yourself'); window.location.replace('http://localhost:8080/SmartHealthWeb/validuser/enduser/Friends.jsp') </script>");
+				request.setAttribute("unfriendOutput", unfriendOutput.toString());
+				request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
+			}
+			else
+			{
+				unfriendOutput.append("<script> document.forms[0].parentNode.removeChild(document.forms[0]); alert(' " + model.unfriend(friendname, curUser) + " ') </script>");
+				request.setAttribute("unfriendOutput", unfriendOutput.toString());
+				request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
+			}
+		}
 			
+					
 	}
 
 }
