@@ -55,7 +55,7 @@ public class Login extends HttpServlet {
 			response.sendRedirect("validuser/loggedin.jsp");
 		}else{
 			PrintWriter pw = response.getWriter();
-			pw.println("User ID invalid");
+			pw.println("User ID or Password invalid");
 			pw.close();
 		}
 	}
