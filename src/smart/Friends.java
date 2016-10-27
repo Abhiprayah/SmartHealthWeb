@@ -72,7 +72,7 @@ public class Friends extends HttpServlet {
 			StringBuffer sendFriendRequestOutput = new StringBuffer();
 			if(friendname.equals(curUser.getUserId()))
 			{
-				sendFriendRequestOutput.append("<script> document.forms[0].parentNode.removeChild(document.forms[0]); alert('you cannot send friend request to yourself') </script>");
+				sendFriendRequestOutput.append("<script> document.forms[0].parentNode.removeChild(document.forms[0]); alert('you cannot send friend request to yourself'); window.location.replace('http://localhost:8080/SmartHealthWeb/validuser/enduser/Friends.jsp') </script>");
 				request.setAttribute("sendFriendRequestOutput", sendFriendRequestOutput.toString());
 				request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
 			}
