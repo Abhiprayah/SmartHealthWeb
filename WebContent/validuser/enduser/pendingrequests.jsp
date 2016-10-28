@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,11 +29,22 @@
     <th width="328" scope="col"><a href="#"> DISCUSSION FORUM </a></th>
     <th width="346" scope="col"><a href="#"> FRIENDSZONE </a></th>
 	<th width="346" scope="col"><a href="#"> HEALTH REPORT</a></th>
-	<th width="346" scope="col"><a href="#"> LOGOUT</a></th>
   </tr>
 </table>
 
 <br />
+
+<% ArrayList<String> pendingrequests = (ArrayList<String>)session.getAttribute("pendingrequests");
+out.write("<p> Select a checkbox if you want to accept a request, leave blank to reject a request</p><br />");
+out.write("<form action='../../ProcessRequest' method='post' onsubmit=alert(/requests-processed/)>");
+out.write("<table>");
+
+for(int i = 0; i<pendingrequests.size();i++)
+{
+out.write("<tr><td>" + pendingrequests.get(i) + "</td> <td><input type='checkbox' name='" + i + "' /></td></tr>"  );
+}
+out.write("<tr><td> </td><input type='submit' name='acceptrejectstatus' id='acceptrejectstatussubmit'/></tr></table></form>");
+%>
 
 </body>
 </html>

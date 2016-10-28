@@ -382,5 +382,44 @@ public class Friends {
 			return pendingrequests;
 			
 		}
-	
-}
+		
+		public void acceptrequest(String Requester_UserName,User curUser)
+		{
+			try{
+				Connection con = DriverManager.getConnection(Global.connectionString);
+				Statement stmt = con.createStatement();
+				String AcceptQuery = "Update friendship set WhenConfirmed = " + "NOW()" + " where Requester_Username = '" + Requester_UserName + "'"
+						+ " and Requested_Username = '" + curUser.getUserId() + "';";
+				int Accept = stmt.executeUpdate(AcceptQuery);
+				if(Accept == 0)
+					System.out.println("Failed to process Accept Request");
+				stmt.close();
+				con.close();
+			
+			}
+			catch ( SQLException err) {
+				System.out.println(err.getMessage( ));
+			}
+		}
+		
+		public void rejectrequest(String Requester_UserName,User curUser)
+		{
+			try{
+				Connection con = DriverManager.getConnection(Global.connectionString);
+				Statement stmt = con.createStatement();
+				String RejectQuery = "Update friendship set WhenRejected = " + "NOW()" + " where Requester_Username = '" + Requester_UserName + "'"
+						+ " and Requested_Username = '" + curUser.getUserId() + "';";
+				int Reject = stmt.executeUpdate(RejectQuery);
+				if(Reject == 0)
+					System.out.println("Failed to process reject request");
+				stmt.close();
+				con.close();
+			
+			}
+			catch ( SQLException err) {
+				System.out.println(err.getMessage( ));
+			}
+		}
+		
+		}
+

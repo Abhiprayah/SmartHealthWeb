@@ -110,10 +110,10 @@ public class Friends extends HttpServlet {
 				request.setAttribute("pendingRequestOutput", pendingRequestOutput.toString());
 				request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
 			}
-			else
+			else if(request.getParameter("viewrequests")!=null)
 			{
 				request.getSession(false).setAttribute("pendingrequests", pendingrequests);
-				response.sendRedirect("/valid/enduser/pendingrequest.jsp");
+				response.sendRedirect("/SmartHealthWeb/validuser/enduser/pendingrequests.jsp");
 			}
 		}
 			
