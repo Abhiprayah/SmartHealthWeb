@@ -50,6 +50,16 @@ public class Moderator extends User{
 		}
 	}
 	
+	public String displayQualifications(){
+		String s = "";
+		for(int i=0;i<this.qualifications.size();i++)
+		{
+			s += this.qualifications.get(i).getQualificationID();
+			if(i != this.qualifications.size()-1) s += " ";
+		}
+		return s;
+	}
+	
 	public void printProfileInfo(PrintWriter pw)
 	{
 		super.printProfileInfo(pw);
