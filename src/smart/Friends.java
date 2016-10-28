@@ -100,6 +100,22 @@ public class Friends extends HttpServlet {
 				request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
 			}
 		}
+		else if(request.getParameter("viewrequests")!=null)
+		{
+			ArrayList<String> pendingrequests = model.viewPendingRequests(curUser);
+			if(pendingrequests == null)
+			{
+				StringBuffer pendingRequestOutput = new StringBuffer();
+				pendingRequestOutput.append("<script> document.forms[0].parentNode.removeChild(document.forms[0]); alert('There are no pending requests'); window.location.replace('http://localhost:8080/SmartHealthWeb/validuser/enduser/Friends.jsp') </script>");
+				request.setAttribute("pendingRequestOutput", pendingRequestOutput.toString());
+				request.getRequestDispatcher("/validuser/enduser/Friends.jsp").forward(request, response);
+			}
+			else
+			{
+				request.getSession(false).setAttribute("pendingrequests", pendingrequests);
+				response.sendRedirect("/valid/enduser/pendingrequest.jsp");
+			}
+		}
 			
 					
 	}

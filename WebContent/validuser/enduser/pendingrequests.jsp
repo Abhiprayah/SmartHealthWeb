@@ -33,47 +33,6 @@
 </table>
 
 <br />
-<div>
 
-<!-- still need to handle action url -->
-<form action="../../Friends" method="post">
-<input type="submit" name="viewfriends" id="viewFriendsSubmit" value="Show Friends" />
-<br />
-<br />
-Send Friend request to <input type = "text" name="reqfriendusername" id="friendusernameinput" placeholder="username"/>
-<input type="submit" name="sendrequest" id="friendRequestSubmit" value="Submit" />
-
-<br />
-<br />
-Unfriend this person ....:<input type = "text" name="friendusername" id="unfriendinput" placeholder="username"/>
-<input type="submit" name="unfriend" id="unfriendSubmit" value="Submit" />
-<br />
-<br />
-<input type="submit" name="viewrequests" id="viewRequestSubmit" value="View Pending Requests" />
-</form>
-</div>
-
-
-<div>
-<ul>
-${requestScope.viewFriendsOutput}
-</ul>
-
-
-</div>
-<br />
-<div>
-${requestScope.sendFriendRequestOutput}
-</div>
-
-
-<div>
-${requestScope.unfriendOutput}
-</div>
-
-
-<div>
-${requestScope.pendingRequestOutput}
-</div>
 </body>
 </html>

@@ -345,8 +345,9 @@ public class Friends {
 			}
 		}
 		
-		public void viewPendingRequests(User curUser)
+		public ArrayList<String> viewPendingRequests(User curUser)
 		{
+			ArrayList<String> pendingrequests = new ArrayList<String>();
 			try{
 				Connection con = DriverManager.getConnection(Global.connectionString);
 				Statement stmt = con.createStatement();
@@ -358,35 +359,14 @@ public class Friends {
 				if(!arependingrequests)
 				{
 					System.out.println("There are no pending requests :D");
+					pendingrequests = null;
 				}
 				else
 				{
 					while(result.next())
 					{
 						String Requester_UserName = result.getString("Requester_Username");
-						
-						switch(view.acceptreject(Requester_UserName))
-						{
-						case 1:
-							
-							String AcceptQuery = "Update friendship set WhenConfirmed = " + "NOW()" + " where Requester_Username = '" + Requester_UserName + "'"
-												+ " and Requested_Username = '" + curUser.getUserId() + "';";
-							int Accept = stmt.executeUpdate(AcceptQuery);
-							if(Accept == 0)
-								System.out.println("Failed to process Accept Request");
-							
-							break;
-						case 2:
-							
-							String RejectQuery = "Update friendship set WhenRejected = " + "NOW()" + " where Requester_Username = '" + Requester_UserName + "'"
-									+ " and Requested_Username = '" + curUser.getUserId() + "';";
-							int Reject = stmt.executeUpdate(RejectQuery);
-							if(Reject == 0)
-								System.out.println("Failed to process reject request");
-							
-							break;
-						default:System.out.println("pending request window closed x");
-						}
+						pendingrequests.add(Requester_UserName);
 					}
 				}
 				
@@ -398,6 +378,8 @@ public class Friends {
 			catch ( SQLException err) {
 				System.out.println(err.getMessage( ));
 			}
+			
+			return pendingrequests;
 			
 		}
 	
