@@ -31,4 +31,13 @@ interface UserForm {
 		}
 		return qualifications;
 	}
+	
+	default String qualificationsToString(){
+		ArrayList<Qualification> qualifications = getQualifications();
+		String ret = "<br />";
+		for(Qualification q : qualifications){
+			ret = ret + q.getQualificationID() + ". " + q.toString() + "<br />";
+		}
+		return ret;
+	}
 }
