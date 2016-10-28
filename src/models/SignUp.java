@@ -16,6 +16,15 @@ import smart.Global;
 
 public class SignUp implements UserForm {
 
+	public SignUp(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public boolean userIDExists(String userID){
 		boolean userExists = false;
 		try(Connection con = DriverManager.getConnection(Global.connectionString);

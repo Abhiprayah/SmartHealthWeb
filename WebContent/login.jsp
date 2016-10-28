@@ -43,7 +43,7 @@
 		</tr>
 		<tr>
 			<td class="auto-style2"><input name="Login" type="submit" value="Login" /></td>
-			<td class="auto-style3"><input name="SignUp" type="button" value="Register" /></td>
+			<td class="auto-style3"><input name="SignUp" type="submit" value="Register" /></td>
 		</tr>
 	</table>
 </form>

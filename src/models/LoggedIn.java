@@ -9,6 +9,15 @@ import smart.Global;
 
 public class LoggedIn {
 
+	public LoggedIn(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void quitUser(String userID){
 		String query = "UPDATE User SET Status = 0 WHERE UserName = '" + userID + "';";
 		try(Connection con = DriverManager.getConnection(Global.connectionString);

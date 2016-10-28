@@ -1,6 +1,8 @@
 package smart;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -78,29 +80,47 @@ public class SignUpEndUser extends HttpServlet implements UserForm{
 				commonDetails[ABOUT_ME],commonDetails[PROFILE_PIC1],
 				commonDetails[PROFILE_PIC2], commonDetails[PROFILE_PIC3],false);
 		
-		boolean validuser = validateUser(user);
-		
-		models.SignUp model = new models.SignUp();
-		model.store(user);
-		response.sendRedirect("login.jsp");
+		String errormessage = validateUser(user);
+		if(errormessage == null){
+			models.SignUp model = new models.SignUp();
+			model.store(user);
+			response.sendRedirect("login.jsp");
+		}else{
+			PrintWriter pw = response.getWriter();
+			pw.println(errormessage);
+			pw.close();
+		}
 	}
 
-	public boolean validateUser(User user){
+	public String validateUser(User user){
+		models.SignUp model = new models.SignUp();
 		if(user.getFirstName() == null || user.getFirstName().isEmpty()){
-			return false;
+			return "FirstName is empty";
 		}
 		if(user.getLastName() == null || user.getLastName().isEmpty()){
-			return false;
+			return "Last Name is empty";
 		}
-		if(user.getPrimaryEmail() == null || user.getPrimaryEmail().isEmpty() || user.getPrimaryEmail()){
-			return false;
+		if(user.getPrimaryEmail() == null || user.getPrimaryEmail().isEmpty() || !isValidEmail(user.getPrimaryEmail())){
+			return "Invalid Primary Email";
+		}else if(model.primaryEmailIDExists(user.getPrimaryEmail())){
+			return "Primary Email ID already registered";
 		}
-		if(user.getSecondaryEmail() == null || user.getSecondaryEmail().isEmpty()){
-			return false;
+		if(user.getSecondaryEmail() == null || user.getSecondaryEmail().isEmpty() 
+				|| user.getSecondaryEmail().equalsIgnoreCase(user.getPrimaryEmail()) || !isValidEmail(user.getSecondaryEmail())){
+			return "Invalid Secondary Email";
 		}
 		if(user.getPassword() == null || user.getPassword().isEmpty()){
-			return false;
+			return "Password Empty";
 		}
+		if(!isValidURL(user.getPicURL()[0]) || !isValidURL(user.getPicURL()[1]) || !isValidURL(user.getPicURL()[2])){
+			return "Invalid picture URLS";
+		}
+		if(user.getUserId() == null || user.getUserId().isEmpty() || user.getUserId().length() > 20){
+			return "Invalid user name";
+		}else if(model.userIDExists(user.getUserId())){
+			return "User name already taken";
+		}
+		return null;
 	}
 	
 }
