@@ -7,7 +7,7 @@
 <head>
 <meta content="en-us" http-equiv="Content-Language" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Login</title>
+<title>Home</title>
 <style type="text/css">
 .auto-style4 {
 	font-family: "Arial Rounded MT Bold";
