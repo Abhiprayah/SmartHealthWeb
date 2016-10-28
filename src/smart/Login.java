@@ -46,18 +46,22 @@ public class Login extends HttpServlet {
 			request.getSession(false).invalidate();
 		}
 		
-		String ID = request.getParameter("EmailID");
-		String password = request.getParameter("Password");
-		models.Login model = new models.Login();
-		beans.User curUser = model.validUser(ID, password);
-		if(curUser != null){
-			request.getSession().setAttribute("curUser", curUser);
-			if(!curUser.hasQuit()) response.sendRedirect("validuser/loggedin.jsp");
-			else response.sendRedirect("validuser/join.jsp");
-		}else{
-			PrintWriter pw = response.getWriter();
-			pw.println("User ID or Password invalid");
-			pw.close();
+		if(request.getParameter("Login") != null){
+			String ID = request.getParameter("EmailID");
+			String password = request.getParameter("Password");
+			models.Login model = new models.Login();
+			beans.User curUser = model.validUser(ID, password);
+			if(curUser != null){
+				request.getSession().setAttribute("curUser", curUser);
+				if(!curUser.hasQuit()) response.sendRedirect("validuser/loggedin.jsp");
+				else response.sendRedirect("validuser/join.jsp");
+			}else{
+				PrintWriter pw = response.getWriter();
+				pw.println("User ID or Password invalid");
+				pw.close();
+			}
+		}else if(request.getParameter("SignUp") != null){
+			response.sendRedirect("signup.jsp");
 		}
 	}
 
