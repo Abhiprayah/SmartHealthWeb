@@ -54,7 +54,7 @@ public class ProcessRequest extends HttpServlet {
 			}
 			for(Integer i = 0;i<pendingrequests.size();i++)
 			{
-				if(request.getParameter(i.toString())!=null)
+				if(request.getParameter(i.toString())==null)
 				{
 					model.rejectrequest(pendingrequests.get(i), curUser);
 				}

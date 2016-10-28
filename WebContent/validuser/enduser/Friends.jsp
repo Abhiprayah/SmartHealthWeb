@@ -24,7 +24,7 @@
 
 <table width="1024" height="50" border="1" align="center">
   <tr>
-    <th width="328" height="44" scope="col"><a href="loggedin.jsp"> HOME </a></th>
+    <th width="328" height="44" scope="col"><a href="/SmartHealthWeb/validuser/loggedin.jsp"> HOME </a></th>
     <th width="328" scope="col"><a href="#"> DISCUSSION FORUM </a></th>
     <th width="346" scope="col"><a href="#"> FRIENDSZONE </a></th>
 	<th width="346" scope="col"><a href="#"> HEALTH REPORT</a></th>
