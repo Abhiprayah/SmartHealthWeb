@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Address;
-import beans.EndUser;
+import beans.Admin;
 import beans.User;
 
 /**
- * Servlet implementation class UpdateEndUser
+ * Servlet implementation class UpdateAdmin
  */
-@WebServlet("/UpdateEndUser")
-public class UpdateEndUser extends HttpServlet implements UserForm{
+@WebServlet("/UpdateAdmin")
+public class UpdateAdmin extends HttpServlet implements UserForm{
 	private static final long serialVersionUID = 1L;
-    
+	
 	private final static int FIRST_NAME = 0;
 	private final static int LAST_NAME = 1;
 	private final static int SECONDARY_EMAIL = 2;
@@ -41,11 +41,11 @@ public class UpdateEndUser extends HttpServlet implements UserForm{
 			"governingDistrict", "postalArea",
 			"about", "profilePicLink1","profilePicLink2","profilePicLink3"}; 
 	
-	
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateEndUser() {
+    public UpdateAdmin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -55,7 +55,7 @@ public class UpdateEndUser extends HttpServlet implements UserForm{
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -69,16 +69,17 @@ public class UpdateEndUser extends HttpServlet implements UserForm{
 		for(int i=0;i<options.length;i++){
 			commonDetails[i] = request.getParameter(options[i]);
 		}
+		String emergencyContact = request.getParameter("emergencyContact");
 		
 		User curUser = (User)request.getSession(false).getAttribute("curUser");
 		
-		User user = new EndUser(commonDetails[FIRST_NAME],commonDetails[LAST_NAME], "",
+		User user = new Admin(commonDetails[FIRST_NAME],commonDetails[LAST_NAME], "",
 				commonDetails[SECONDARY_EMAIL],commonDetails[PASSWORD], "",
 				new Address(commonDetails[STREET_NUMBER], commonDetails[STREET_NAME],
 						commonDetails[MAJOR_MUNICIPALITY], commonDetails[GOVERNING_DISTRICT], 
 						commonDetails[POSTAL_AREA]), 
 				commonDetails[ABOUT_ME],commonDetails[PROFILE_PIC1],
-				commonDetails[PROFILE_PIC2], commonDetails[PROFILE_PIC3],false);
+				commonDetails[PROFILE_PIC2], commonDetails[PROFILE_PIC3],false, emergencyContact);
 		
 		String errormessage = validateUser(user);
 		if(errormessage == null){
@@ -101,6 +102,8 @@ public class UpdateEndUser extends HttpServlet implements UserForm{
 			model.updateHelper("User","PhotoURL1",curUser.getPicURL()[0],curUser.getUserId());
 			model.updateHelper("User","PhotoURL2",curUser.getPicURL()[1],curUser.getUserId());
 			model.updateHelper("User","PhotoURL3",curUser.getPicURL()[2],curUser.getUserId());
+			((Admin)curUser).setEmergencyContact(emergencyContact);
+			model.updateHelper("Administrator", "Phone", emergencyContact, curUser.getUserId());
 			response.sendRedirect("/SmartHealthWeb/validuser/loggedin.jsp");
 		}else{
 			PrintWriter pw = response.getWriter();
@@ -127,8 +130,10 @@ public class UpdateEndUser extends HttpServlet implements UserForm{
 		if(!isValidURL(user.getPicURL()[0]) || !isValidURL(user.getPicURL()[1]) || !isValidURL(user.getPicURL()[2])){
 			return "Invalid picture URLS";
 		}
+		if(((Admin)user).getEmergencyContact() == null || !this.isValidContactNumber(((Admin)user).getEmergencyContact())){
+			return "Invalid Contact number";
+		}
 		return null;
 	}
-
 
 }

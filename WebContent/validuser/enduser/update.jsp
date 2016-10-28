@@ -28,7 +28,7 @@
 <div>
 	<h1 class="auto-style4">SmartHealth</h1>
 </div>
-<form method="post" action="UpdateEndUser">
+<form method="post" action="/SmartHealthWeb/UpdateEndUser">
 <table align="center" style="width: 50%">
 	<tr>
 		<td class="auto-style5" valign="top">First Name:</td>
