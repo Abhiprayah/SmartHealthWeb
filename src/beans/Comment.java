@@ -7,13 +7,21 @@ public class Comment extends UserPost{
 		super(username, timeCreated, textEntry, photoLocation, linkLocation, videoLocation);
 	}
 
-	public void display(){
-		String indentation = "--------";
-		System.out.println(indentation + "Username: " + getUsername());
-		System.out.println(indentation + "Time Created: " + getTimeCreated());
-		System.out.println(indentation + "Text: " + getTextEntry());
-		System.out.println(indentation + "Photo: " + getPhotoLocation());
-		System.out.println(indentation + "Link: " + getLinkLocation());
-		System.out.println(indentation + "Video: " + getVideoLocation());
+	public String display(){
+		String ret ="<p>";
+		String indentation = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+		ret += indentation + "Username:&nbsp;" + getUsername();
+		ret += "<br />";
+		ret += indentation + "Time Created:&nbsp;" + getTimeCreated();
+		ret += "<br />";
+		ret += indentation + "Text:&nbsp;" + getTextEntry();
+		ret += "<br />";
+		ret += indentation + "Photo:&nbsp;" + getPhotoLocation();
+		ret += "<br />";
+		ret += indentation + "Link:&nbsp;" + getLinkLocation();
+		ret += "<br />";
+		ret += indentation + "Video:&nbsp;" + getVideoLocation();
+		ret += "</p>";
+		return ret;
 	}
 }

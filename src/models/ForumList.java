@@ -54,7 +54,7 @@ public class ForumList {
 	
 	public void createForum(String topic, String summary, Moderator moderator){
 		int ID = numIDs() + 1;
-		String url = "www.smarthealth.com/forums/" + ID;
+		String url = "/SmartHealthWeb/validuser/forums?id=" + ID;
 		if(ID != -1){
 			String query = "INSERT INTO Forum VALUES ("
 					+ ID + ", " 

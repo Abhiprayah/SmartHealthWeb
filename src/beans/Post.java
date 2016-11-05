@@ -16,19 +16,46 @@ public class Post extends UserPost{
 		this.ID = ID;
 	}
 	
-	public void display(){
-		String indentation = "----";
-		System.out.println(indentation + "Post ID: " + ID);
-		System.out.println(indentation + "Rating: " + rating);
-		System.out.println(indentation + "Username: " + getUsername());
-		System.out.println(indentation + "Time Created: " + getTimeCreated());
-		System.out.println(indentation + "Text: " + getTextEntry());
-		System.out.println(indentation + "Photo: " + getPhotoLocation());
-		System.out.println(indentation + "Link: " + getLinkLocation());
-		System.out.println(indentation + "Video: " + getVideoLocation());
+	public String display(){
+		String ret = "";
+		String indentation = "<br />";
+		ret += "<p>";
+		ret += "Post ID: " + ID;
+		ret += indentation + "Rating: " + rating;
+		ret += indentation + "Username: " + getUsername();
+		ret += indentation + "Time Created: " + getTimeCreated();
+		ret += indentation + "Text: " + getTextEntry();
+		ret += indentation + "Photo: " + getPhotoLocation();
+		ret += indentation + "Link: " + getLinkLocation();
+		ret += indentation + "Video: " + getVideoLocation();
+		ret += indentation;
+		ret += "<input name=\"rating\" type=\"radio\" value=\"1\" />";
+		ret += "<input name=\"rating\" type=\"radio\" value=\"2\" />";
+		ret += "<input name=\"rating\" type=\"radio\" value=\"3\" />";
+		ret += "<input name=\"rating\" type=\"radio\" value=\"4\" />";
+		ret += "<input name=\"rating\" type=\"radio\" value=\"5\" />";
+		ret += "<input name=\"RatingSubmit\" type=\"submit\" value=\"Rate\"";
+		ret += indentation;
+		ret += indentation;
+		ret += "<label id=\"Label1\">Enter Comment:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>";
+		ret += "<input name=\"comment\" type=\"text\" style=\"width: 400px\" />";
+		ret += indentation;
+		ret += "<label id=\"Label1\">Enter Photo Link:&nbsp;&nbsp;&nbsp;&nbsp;</label>";
+		ret += "<input name=\"photoLocation\" type=\"text\" style=\"width: 400px\" />";
+		ret += indentation;
+		ret += "<label id=\"Label1\">Enter Video Link:&nbsp;&nbsp;&nbsp;&nbsp;</label>";
+		ret += "<input name=\"videoLocation\" type=\"text\" style=\"width: 400px\" />";
+		ret += indentation;
+		ret += "<label id=\"Label1\">Enter Link Location:</label>";
+		ret += "<input name=\"linkLocation\" type=\"text\" style=\"width: 400px\" />";
+		ret += indentation;
+		ret += "<input name=\"CommentSubmit\" type=\"submit\" value=\"Comment\" />";
+		ret += "</p>";
+		ret += "<p><strong>Comments:</strong></p>";
 		for(Comment c : comments){
-			c.display();
+			ret += c.display();
 		}
+		return ret;
 	}
 	
 	public ArrayList<Comment> getComments() {
