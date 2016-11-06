@@ -11,12 +11,20 @@
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   <filter-mapping>
-    <filter-name>LoginFilter</filter-name>
+    <filter-name>AuthenticationFilter</filter-name>
     <url-pattern>/validuser/*</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>HomeFilter</filter-name>
     <url-pattern>/validuser/loggedin.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>QuitedFilter</filter-name>
+    <url-pattern>/validuser/join.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>ForumFilter</filter-name>
+  	<url-pattern>/validuser/forum.jsp</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>ModeratorFilter</filter-name>

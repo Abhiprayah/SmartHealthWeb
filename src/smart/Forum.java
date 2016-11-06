@@ -47,6 +47,12 @@ public class Forum extends HttpServlet implements UserForm{
 		User user = (User)request.getSession(false).getAttribute("curUser");
 		models.Forums model = new models.Forums();
 		String forumID = request.getParameter("forumID");
+		if(model.isClosed(Integer.parseInt(forumID))){
+			PrintWriter pw = response.getWriter();
+			pw.print("Forum has been closed and cannot be modified");
+			pw.close();
+			return;
+		}
 		beans.Forum forum = model.getForumContent(Integer.parseInt(forumID));
 		String postID = request.getParameter("postID");
 		if(request.getParameter("postSubmit") != null){

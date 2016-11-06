@@ -10,20 +10,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import beans.User;
 
 /**
- * Servlet Filter implementation class HomeFilter
+ * Servlet Filter implementation class ForumFilter
  */
-@WebFilter(filterName="HomeFilter")
-public class HomeFilter implements Filter {
+@WebFilter(filterName="ForumFilter")
+public class ForumFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public HomeFilter() {
+    public ForumFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -40,26 +39,19 @@ public class HomeFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        HttpSession session = req.getSession(false);
         
-        String homeURI = req.getContextPath() + "/validuser/loggedin.jsp";
-        boolean homeRequest = req.getRequestURI().equals(homeURI);
-        
-        if(!homeRequest){
-        	chain.doFilter(request, response);
-        }else{
-        	User curUser = (User)session.getAttribute("curUser");
-        	if(curUser.hasQuit()){
-        		res.sendRedirect(req.getContextPath() + "/validuser/join.jsp");
+        User curUser = (User)req.getSession(false).getAttribute("curUser");
+        int ID = Integer.parseInt(req.getParameter("id"));
+        if(!curUser.getUserType().equals("MOD")){
+        	models.Forums model = new models.Forums();
+        	if(model.isClosed(ID)){
+        		res.sendRedirect(req.getContextPath() + "/validuser/closed_forum.jsp");
+     
         	}else{
-        		if(curUser.getUserType().equals("MOD")){
-        			res.sendRedirect(req.getContextPath() + "/validuser/moderator/home.jsp");
-        		}else if(curUser.getUserType().equals("ADMIN")){
-        			res.sendRedirect(req.getContextPath() + "/validuser/admin/home.jsp");
-        		}else{
-        			res.sendRedirect(req.getContextPath() + "/validuser/enduser/home.jsp");
-        		}
+        		chain.doFilter(request, response);
         	}
+        }else{
+        	res.sendRedirect(req.getContextPath() + "/validuser/moderator/forum.jsp");
         }
 	}
 

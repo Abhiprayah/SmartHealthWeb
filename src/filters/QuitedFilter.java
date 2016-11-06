@@ -10,20 +10,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import beans.User;
 
 /**
- * Servlet Filter implementation class HomeFilter
+ * Servlet Filter implementation class QuitedFilter
  */
-@WebFilter(filterName="HomeFilter")
-public class HomeFilter implements Filter {
+@WebFilter(filterName="QuitedFilter")
+public class QuitedFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public HomeFilter() {
+    public QuitedFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -40,28 +39,15 @@ public class HomeFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        HttpSession session = req.getSession(false);
         
-        String homeURI = req.getContextPath() + "/validuser/loggedin.jsp";
-        boolean homeRequest = req.getRequestURI().equals(homeURI);
+        User curUser = (User)req.getSession(false).getAttribute("curUser");
         
-        if(!homeRequest){
+        if(curUser.hasQuit()){
         	chain.doFilter(request, response);
         }else{
-        	User curUser = (User)session.getAttribute("curUser");
-        	if(curUser.hasQuit()){
-        		res.sendRedirect(req.getContextPath() + "/validuser/join.jsp");
-        	}else{
-        		if(curUser.getUserType().equals("MOD")){
-        			res.sendRedirect(req.getContextPath() + "/validuser/moderator/home.jsp");
-        		}else if(curUser.getUserType().equals("ADMIN")){
-        			res.sendRedirect(req.getContextPath() + "/validuser/admin/home.jsp");
-        		}else{
-        			res.sendRedirect(req.getContextPath() + "/validuser/enduser/home.jsp");
-        		}
-        	}
-        }
-	}
+        	res.sendRedirect(req.getContextPath() + "/validuser/loggedin.jsp");
+        }	
+    }
 
 	/**
 	 * @see Filter#init(FilterConfig)
