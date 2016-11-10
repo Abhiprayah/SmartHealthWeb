@@ -23,8 +23,8 @@
     <url-pattern>/validuser/join.jsp</url-pattern>
   </filter-mapping>
   <filter-mapping>
-  	<filter-name>ForumFilter</filter-name>
-  	<url-pattern>/validuser/forum.jsp</url-pattern>
+    <filter-name>ForumFilter</filter-name>
+    <url-pattern>/validuser/forum.jsp</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>ModeratorFilter</filter-name>

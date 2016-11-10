@@ -13,7 +13,7 @@ import smart.Global;
 
 public class HealthData {
 
-	public void newData(ArrayList<Integer> healthPropertiesValues, User curUser)
+	public void newData(ArrayList<String> healthPropertiesValues, User curUser)
 	{
 		try
 		{
