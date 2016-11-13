@@ -19,7 +19,7 @@ interface UserForm {
 			return true;
 		}
 		catch(Exception ex){
-			System.out.println("Could not verify URL");
+			//System.out.println("Could not verify URL");
 		}
 		return false;
 	}
