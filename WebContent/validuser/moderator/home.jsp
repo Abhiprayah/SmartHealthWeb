@@ -37,7 +37,7 @@
 		<td><a href="/SmartHealthWeb/Display">Display</a></td>
 		<td><a href="update.jsp">Update</a></td>
 		<td><a href="forums.jsp">Forums</a></td>
-		<td><a href="/health_data">Health Data</a></td>
+		<td><a href="/SmartHealthWeb/validuser/healthdata.jsp">Health Data</a></td>
 		<td><a href="/SmartHealthWeb/Quit">Quit Profile </a></td>
 		<td><a href="/SmartHealthWeb/Logout">Logout</a></td>
 	</tr>

@@ -51,7 +51,7 @@ public class ForumFilter implements Filter {
         		chain.doFilter(request, response);
         	}
         }else{
-        	res.sendRedirect(req.getContextPath() + "/validuser/moderator/forum.jsp");
+        	res.sendRedirect(req.getContextPath() + "/validuser/moderator/forum.jsp?id="+ID);
         }
 	}
 

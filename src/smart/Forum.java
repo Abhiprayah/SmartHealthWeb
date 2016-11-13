@@ -100,7 +100,7 @@ public class Forum extends HttpServlet implements UserForm{
 			}
 		}else if(request.getParameter("closeForum") != null){
 			model.closeForum(Integer.parseInt(forumID), (Moderator)user);
-			response.sendRedirect("SmartHealthWeb/validuser/moderator/forums.jsp");
+			response.sendRedirect("/SmartHealthWeb/validuser/moderator/forums.jsp");
 		}
 	}
 
